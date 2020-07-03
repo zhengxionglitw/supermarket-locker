@@ -25,4 +25,13 @@ public class Locker {
         storeBags.put(ticket, bag);
         return ticket;
     }
+
+    public Bag retrieval(Ticket ticket) {
+        Bag bag = storeBags.get(ticket);
+        if (bag != null) {
+            storeBags.remove(ticket);
+            availableCapacity.incrementAndGet();
+        }
+        return bag;
+    }
 }
