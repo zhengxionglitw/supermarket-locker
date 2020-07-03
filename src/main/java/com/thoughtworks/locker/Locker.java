@@ -2,6 +2,7 @@ package com.thoughtworks.locker;
 
 
 import com.thoughtworks.locker.exception.FullException;
+import com.thoughtworks.locker.exception.InvalidTicketException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,10 +29,11 @@ public class Locker {
 
     public Bag retrieval(Ticket ticket) {
         Bag bag = storeBags.get(ticket);
-        if (bag != null) {
-            storeBags.remove(ticket);
-            availableCapacity.incrementAndGet();
+        if (bag == null) {
+            throw new InvalidTicketException();
         }
+        storeBags.remove(ticket);
+        availableCapacity.incrementAndGet();
         return bag;
     }
 }
